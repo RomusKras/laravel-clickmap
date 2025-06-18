@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\ClickController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,5 +18,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::resource('sites', SiteController::class)->middleware('auth');
+# Маршрут карты кликов
+Route::get('/sites/{site}/click-map', [ClickController::class, 'show'])->middleware('auth');
 
 require __DIR__.'/auth.php';

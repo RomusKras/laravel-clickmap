@@ -7,6 +7,26 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Использование
+
+Для старта использования скрипта на сайте нужно добавить на него код:
+
+Вариант 1: Ручная инициализация
+
+`const ClickTracker = {
+config: {
+endpoint: 'http://laravel.localhost/api/track-click', // Укажите URL вашего API
+debug: false
+},
+};`
+
+Вариант 2: Автоматическая через HTML
+
+`<script src="tracker.js" 
+        data-auto-init="true" 
+        data-endpoint="http://laravel.localhost/api/track-click">
+</script>`
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
