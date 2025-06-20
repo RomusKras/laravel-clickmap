@@ -18,6 +18,8 @@ class ClickController extends Controller
                 'clicks.*.y' => 'required|numeric',
                 'clicks.*.timestamp' => 'required|date',
                 'clicks.*.url' => 'required|string',
+                'clicks.*.userAgent' => 'required|string',
+                'clicks.*.target' => 'required|array', // target должен быть JSON
             ]);
             // Извлечение уникальных доменов (протокол + хост) из массива `clicks`
             $uniqueDomains = collect($request->input('clicks'))->map(function ($click) {
@@ -40,6 +42,9 @@ class ClickController extends Controller
                     'y' => $click['y'],
                     'timestamp' => $click['timestamp'],
                     'site_id' => $site ? $site->id : null, // Если сайт не найден, возвращаем null
+                    'full_url' => $click['url'], // Полный URL клика
+                    'userAgent' => $click['userAgent'], // User-Agent пользователя
+                    'target' => json_encode($click['target']), // Преобразуем target в JSON
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
@@ -54,18 +59,6 @@ class ClickController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
-    }
-
-    /**
-     * Вспомогательный метод для извлечения ID сайта из URL.
-     */
-    private function extractSiteId($url)
-    {
-        // Логика для извлечения site_id из пути URL
-        // Например /sites/{site_id}/click-map
-        preg_match('/\/sites\/(\d+)\//', $url, $matches);
-
-        return $matches[1] ?? null;
     }
 
     public function show($siteId, Request $request)

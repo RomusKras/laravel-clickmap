@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
+                <div class="{{-- max-w-xl --}}">
                     <section>
                         <header>
                             <h2 class="text-lg font-medium text-gray-900">
@@ -32,9 +32,69 @@
 
                         <!-- Список кликов -->
                         <div class="mt-6">
-                            @foreach ($clicks as $click)
-                                <p class="text-sm text-gray-600">Координаты: X={{ $click->x }}, Y={{ $click->y }}</p>
-                            @endforeach
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border-collapse border border-gray-300 bg-white">
+                                    <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="border border-gray-300 px-6 py-3 text-left text-sm font-medium text-gray-700">
+                                            Координаты
+                                        </th>
+                                        <th class="border border-gray-300 px-6 py-3 text-left text-sm font-medium text-gray-700">
+                                            Ссылка
+                                        </th>
+                                        <th class="border border-gray-300 px-6 py-3 text-left text-sm font-medium text-gray-700">
+                                            Target
+                                        </th>
+                                        <th class="border border-gray-300 px-6 py-3 text-left text-sm font-medium text-gray-700">
+                                            UserAgent
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($clicks as $click)
+                                        <tr class="border border-gray-300">
+                                            <!-- Координаты -->
+                                            <td class="px-6 py-4 text-sm text-gray-600">
+                                                X={{ $click->x }}, Y={{ $click->y }}
+                                            </td>
+
+                                            <!-- Ссылка -->
+                                            <td class="px-6 py-4">
+                                                @if(!empty($click->full_url))
+                                                    <a href="{{ $click->full_url }}" target="_blank" class="text-blue-600 hover:underline">
+                                                        {{ $click->full_url }}
+                                                    </a>
+                                                @else
+                                                    <span class="text-gray-400">Нет ссылки</span>
+                                                @endif
+                                            </td>
+
+                                            <!-- Target -->
+                                            <td class="px-6 py-4 text-sm text-gray-600">
+                                                @if(!empty($click->target))
+                                                    <code class="bg-gray-100 p-1 rounded">
+                                                        {{ json_encode($click->target, JSON_UNESCAPED_UNICODE) }}
+                                                    </code>
+                                                @else
+                                                    <span class="text-gray-400">Пусто</span>
+                                                @endif
+                                            </td>
+
+                                            <!-- UserAgent -->
+                                            <td class="px-6 py-4 text-sm text-gray-600">
+                                                @if(!empty($click->userAgent))
+                                                    <code class="bg-gray-100 p-1 rounded">
+                                                        {{ $click->userAgent }}
+                                                    </code>
+                                                @else
+                                                    <span class="text-gray-400">Нет</span>
+                                                @endif
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <!-- Пагинация -->
                         <div class="mt-6">
