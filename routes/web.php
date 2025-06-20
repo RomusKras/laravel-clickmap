@@ -21,6 +21,11 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('sites', SiteController::class)->middleware('auth');
 # Маршрут карты кликов
-Route::get('/sites/{site}/click-map', [ClickController::class, 'show'])->middleware('auth');
+Route::get('/sites/{site}/click-map', [ClickController::class, 'show'])->middleware('auth')->name('sites.click-map');
+
+Route::get('/tech-spec', [SiteController::class, 'techSpec'])->name('tech.spec');
+
+Route::get('/sites/{site}/activity-chart', [SiteController::class, 'activityChart'])->name('activity.chart');
+
 
 require __DIR__.'/auth.php';

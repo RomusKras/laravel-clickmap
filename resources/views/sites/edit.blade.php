@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Sites') }}
+            Сайты
         </h2>
     </x-slot>
 
@@ -10,24 +10,36 @@
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <section>
-                        <header>
+                        <header class="mb-6">
                             <h2 class="text-lg font-medium text-gray-900">
                                 Редактировать сайт
                             </h2>
                         </header>
 
-                        <form action="{{ route('sites.update', $site) }}" method="POST">
+                        <form action="{{ route('sites.update', $site) }}" method="POST" class="space-y-6">
                             @csrf
                             @method('PUT')
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Название сайта</label>
-                                <input type="text" name="name" id="name" value="{{ $site->name }}" class="form-control" required>
+
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">
+                                    Название сайта
+                                </label>
+                                <input type="text" name="name" id="name" value="{{ $site->name }}" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                             </div>
-                            <div class="mb-3">
-                                <label for="url" class="form-label">URL сайта</label>
-                                <input type="url" name="url" id="url" value="{{ $site->url }}" class="form-control" required>
+
+                            <div>
+                                <label for="url" class="block text-sm font-medium text-gray-700 mb-1">
+                                    URL сайта
+                                </label>
+                                <input type="url" name="url" id="url" value="{{ $site->url }}" required
+                                       class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                             </div>
-                            <button type="submit" class="btn btn-success">Обновить</button>
+
+                            <button type="submit"
+                                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                Обновить
+                            </button>
                         </form>
                     </section>
                 </div>

@@ -16,7 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('sites.index')" :active="request()->routeIs('sites.index')">
-                        {{ __('Sites') }}
+                        Сайты
+                    </x-nav-link>
+                    <x-nav-link :href="route('tech.spec')" :active="request()->routeIs('tech.spec')">
+                        Тех. задание
                     </x-nav-link>
                 </div>
             </div>
